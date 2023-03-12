@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Form, InputGroup, Button, Nav } from "react-bootstrap";
+import { Form, InputGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
 import { ToastContainer, toast } from 'react-toastify';
 import { db, auth } from "../../utils/firebase";
+// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/AddTask.css';
 import NavBar from '../common/NavBar';
 
 export const Register = () => {
-
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -60,7 +60,7 @@ export const Register = () => {
                     // console.log('signed up')
                     setTimeout(() => {
                         navigate('/', { replace: true });
-                    }, 5300)
+                    }, 3000)
                 } else {
                     toast.error('Oops! An error occurred. Please try again later');
                 }

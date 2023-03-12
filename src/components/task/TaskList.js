@@ -14,8 +14,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import TaskService from "../../middleware/Service";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../utils/firebase";
 
 const TaskList = () => {
+
+    const [user] = useAuthState(auth);
 
     const [tasks, setTasks] = useState([]);
     const [existingTaskId, setExistingTaskId] = useState("");
@@ -93,6 +97,10 @@ const TaskList = () => {
     }
 
     return (
+        <>
+
+        {user ?
+        
         <div id='tableDiv'>
             <h1> View Tasks</h1>
             <TableContainer component={Paper}>
@@ -166,9 +174,37 @@ const TaskList = () => {
                     <Button onClick={handleCancel}>Cancel</Button>
                     <Button onClick={handleUpdate}>Save</Button>
                 </DialogActions>
-            </Dialog>
-        </div >
-    )
-}
+                </Dialog>
+            </div >
+
+            :
+
+            <div id='tableDiv'>
+                <h1> View Tasks</h1>
+                    <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="left" >Task Name</TableCell>
+                            <TableCell align="left">Task description</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {tasks.map(task => (
+                            <TableRow
+                                key={task.id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell align="left">{task.taskName}</TableCell>
+                                <TableCell align="left">{task.taskDescription}</TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div >
+        }        
+    </>
+)}
 
 export default TaskList;

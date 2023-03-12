@@ -48,7 +48,7 @@ export const Reset = () => {
           <Link to="/login" className="resetDes">Already have an account</Link>
         </Form.Group>
 
-        <Button variant="primary" onClick={handlePasswordReset}>
+        <Button variant="outline-info" onClick={handlePasswordReset}>
           Send email
         </Button>
       </form>

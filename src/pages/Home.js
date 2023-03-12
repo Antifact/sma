@@ -7,7 +7,7 @@ import { auth } from "../utils/firebase";
 
 const Home = () => {
 
-  const user = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   
 
@@ -16,7 +16,7 @@ const Home = () => {
       <NavBar />
       <TaskList />
       { user ? <AddTask /> : '' }
-      { user ? console.log(user.firstName) : console.log('not logged in') }
+      { user ? console.log(user) : console.log('not logged in') }
     </>
   )
 }

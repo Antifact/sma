@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/AddTask.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
+import NavBar from '../common/NavBar';
+
 
 export const Login = () => {
 
@@ -40,6 +42,8 @@ export const Login = () => {
 
     return (
         <>
+        <NavBar />
+
             <div id='mainDiv'>
                 <form>
                     <Form.Group className="mb-3">

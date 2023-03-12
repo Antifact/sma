@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utils/firebase";
 import { signOut } from "firebase/auth";
+import { Avatar } from '@mui/material';
 
 const NavBar = () => {
 
@@ -27,18 +28,7 @@ const NavBar = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="#features">Features</Nav.Link>
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
-                <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">
-                        Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-                Separated link
-            </NavDropdown.Item>
-            </NavDropdown>
-        </Nav>
+                    </Nav>
 
         <Nav activeKey="/" onSelect={selectedKey => {
             // eslint-disable-next-line default-case
@@ -52,10 +42,24 @@ const NavBar = () => {
             </Nav>
 
             <Nav>
-
-                <Nav.Item className="navItem">
-                    <Button variant="outline-info" className="logoutBtn" onClick={logout}>{user ? 'Logout' : 'Login'}</Button>
-                </Nav.Item>
+                {user ?
+                    <>
+                    <Nav.Item className='navItem'>
+                        <Avatar src={user.email} />
+                    </Nav.Item>
+                    
+                    <Nav.Item className="navItem">
+                        <NavDropdown title={user.email} id="collapsible-nav-dropdown">
+                            <NavDropdown.Item href={user.uid}>Profile</NavDropdown.Item>
+                            <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav.Item>
+                    </>
+                    :
+                        <Nav.Item className="navItem"> 
+                            <Button variant="outline-info" className="logoutBtn" onClick={logout}>{user ? 'Logout' : 'Login'}</Button>
+                        </Nav.Item>
+                }
             </Nav>
         </Navbar.Collapse>
         </Container>
